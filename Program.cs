@@ -304,6 +304,7 @@
 
 
 using System.Globalization;
+using System.Runtime.ConstrainedExecution;
 using Microsoft.Win32;
 
 
@@ -560,105 +561,245 @@ using Microsoft.Win32;
 //         Console.WriteLine(i);
 // }
 
-// the ourAnimals array will store the following: 
-string animalSpecies = "";
-string animalID = "";
-string animalAge = "";
-string animalPhysicalDescription = "";
-string animalPersonalityDescription = "";
-string animalNickname = "";
+// // the ourAnimals array will store the following: 
+// string animalSpecies = "";
+// string animalID = "";
+// string animalAge = "";
+// string animalPhysicalDescription = "";
+// string animalPersonalityDescription = "";
+// string animalNickname = "";
 
-// variables that support data entry
-int maxPets = 8;
-string? readResult;
-string menuSelection = "";
+// // variables that support data entry
+// int maxPets = 8;
+// string? readResult;
+// string menuSelection = "";
 
-// array used to store runtime data, there is no persisted data
-string[,] ourAnimals = new string[maxPets, 6];
+// // array used to store runtime data, there is no persisted data
+// string[,] ourAnimals = new string[maxPets, 6];
 
-// TODO: Convert the if-elseif-else construct to a switch statement
+// // TODO: Convert the if-elseif-else construct to a switch statement
 
-// create some initial ourAnimals array entries
-for (int i = 0; i < maxPets; i++)
-{
-    if (i == 0)
-    {
-        animalSpecies = "dog";
-        animalID = "d1";
-        animalAge = "2";
-        animalPhysicalDescription = "medium sized cream colored female golden retriever weighing about 65 pounds. housebroken.";
-        animalPersonalityDescription = "loves to have her belly rubbed and likes to chase her tail. gives lots of kisses.";
-        animalNickname = "lola";
-    }
-    else if (i == 1)
-    {
-        animalSpecies = "dog";
-        animalID = "d2";
-        animalAge = "9";
-        animalPhysicalDescription = "large reddish-brown male golden retriever weighing about 85 pounds. housebroken.";
-        animalPersonalityDescription = "loves to have his ears rubbed when he greets you at the door, or at any time! loves to lean-in and give doggy hugs.";
-        animalNickname = "loki";
-    }
-    else if (i == 2)
-    {
-        animalSpecies = "cat";
-        animalID = "c3";
-        animalAge = "1";
-        animalPhysicalDescription = "small white female weighing about 8 pounds. litter box trained.";
-        animalPersonalityDescription = "friendly";
-        animalNickname = "Puss";
-    }
-    else if (i == 3)
-    {
-        animalSpecies = "cat";
-        animalID = "c4";
-        animalAge = "?";
-        animalPhysicalDescription = "";
-        animalPersonalityDescription = "";
-        animalNickname = "";
-    }
-    else
-    {
-        animalSpecies = "";
-        animalID = "";
-        animalAge = "";
-        animalPhysicalDescription = "";
-        animalPersonalityDescription = "";
-        animalNickname = "";
-    }
+// // create some initial ourAnimals array entries
+// for (int i = 0; i < maxPets; i++)
+// {
+//     if (i == 0)
+//     {
+//         animalSpecies = "dog";
+//         animalID = "d1";
+//         animalAge = "2";
+//         animalPhysicalDescription = "medium sized cream colored female golden retriever weighing about 65 pounds. housebroken.";
+//         animalPersonalityDescription = "loves to have her belly rubbed and likes to chase her tail. gives lots of kisses.";
+//         animalNickname = "lola";
+//     }
+//     else if (i == 1)
+//     {
+//         animalSpecies = "dog";
+//         animalID = "d2";
+//         animalAge = "9";
+//         animalPhysicalDescription = "large reddish-brown male golden retriever weighing about 85 pounds. housebroken.";
+//         animalPersonalityDescription = "loves to have his ears rubbed when he greets you at the door, or at any time! loves to lean-in and give doggy hugs.";
+//         animalNickname = "loki";
+//     }
+//     else if (i == 2)
+//     {
+//         animalSpecies = "cat";
+//         animalID = "c3";
+//         animalAge = "1";
+//         animalPhysicalDescription = "small white female weighing about 8 pounds. litter box trained.";
+//         animalPersonalityDescription = "friendly";
+//         animalNickname = "Puss";
+//     }
+//     else if (i == 3)
+//     {
+//         animalSpecies = "cat";
+//         animalID = "c4";
+//         animalAge = "?";
+//         animalPhysicalDescription = "";
+//         animalPersonalityDescription = "";
+//         animalNickname = "";
+//     }
+//     else
+//     {
+//         animalSpecies = "";
+//         animalID = "";
+//         animalAge = "";
+//         animalPhysicalDescription = "";
+//         animalPersonalityDescription = "";
+//         animalNickname = "";
+//     }
 
-    ourAnimals[i, 0] = "ID #: " + animalID;
-    ourAnimals[i, 1] = "Species: " + animalSpecies;
-    ourAnimals[i, 2] = "Age: " + animalAge;
-    ourAnimals[i, 3] = "Nickname: " + animalNickname;
-    ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
-    ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
-}
+//     ourAnimals[i, 0] = "ID #: " + animalID;
+//     ourAnimals[i, 1] = "Species: " + animalSpecies;
+//     ourAnimals[i, 2] = "Age: " + animalAge;
+//     ourAnimals[i, 3] = "Nickname: " + animalNickname;
+//     ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+//     ourAnimals[i, 5] = "Personality: " + animalPersonalityDescription;
+// }
 
-// display the top-level menu options
+// // display the top-level menu options
 
-Console.Clear();
+// Console.Clear();
 
-Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:");
-Console.WriteLine(" 1. List all of our current pet information");
-Console.WriteLine(" 2. Add a new animal friend to the ourAnimals array");
-Console.WriteLine(" 3. Ensure animal ages and physical descriptions are complete");
-Console.WriteLine(" 4. Ensure animal nicknames and personality descriptions are complete");
-Console.WriteLine(" 5. Edit an animal’s age");
-Console.WriteLine(" 6. Edit an animal’s personality description");
-Console.WriteLine(" 7. Display all cats with a specified characteristic");
-Console.WriteLine(" 8. Display all dogs with a specified characteristic");
-Console.WriteLine();
-Console.WriteLine("Enter your selection number (or type Exit to exit the program)");
+// Console.WriteLine("Welcome to the Contoso PetFriends app. Your main menu options are:");
+// Console.WriteLine(" 1. List all of our current pet information");
+// Console.WriteLine(" 2. Add a new animal friend to the ourAnimals array");
+// Console.WriteLine(" 3. Ensure animal ages and physical descriptions are complete");
+// Console.WriteLine(" 4. Ensure animal nicknames and personality descriptions are complete");
+// Console.WriteLine(" 5. Edit an animal’s age");
+// Console.WriteLine(" 6. Edit an animal’s personality description");
+// Console.WriteLine(" 7. Display all cats with a specified characteristic");
+// Console.WriteLine(" 8. Display all dogs with a specified characteristic");
+// Console.WriteLine();
+// Console.WriteLine("Enter your selection number (or type Exit to exit the program)");
 
-readResult = Console.ReadLine();
-if (readResult != null)
-{
-    menuSelection = readResult.ToLower();
-}
+// readResult = Console.ReadLine();
+// if (readResult != null)
+// {
+//     menuSelection = readResult.ToLower();
+// }
 
-Console.WriteLine($"You selected menu option {menuSelection}.");
-Console.WriteLine("Press the Enter key to continue");
+// Console.WriteLine($"You selected menu option {menuSelection}.");
+// Console.WriteLine("Press the Enter key to continue");
 
-// pause code execution
-readResult = Console.ReadLine();
+// // pause code execution
+// readResult = Console.ReadLine();
+
+// Console.WriteLine("Signed integral types:");
+
+// Console.WriteLine($"sbyte  : {sbyte.MinValue} to {sbyte.MaxValue}");
+// Console.WriteLine($"short  : {short.MinValue} to {short.MaxValue}");
+// Console.WriteLine($"int    : {int.MinValue} to {int.MaxValue}");
+// Console.WriteLine($"long   : {long.MinValue} to {long.MaxValue}");
+
+// Console.WriteLine("");
+// Console.WriteLine("Unsigned integral types:");
+
+// Console.WriteLine($"byte   : {byte.MinValue} to {byte.MaxValue}");
+// Console.WriteLine($"ushort : {ushort.MinValue} to {ushort.MaxValue}");
+// Console.WriteLine($"uint   : {uint.MinValue} to {uint.MaxValue}");
+// Console.WriteLine($"ulong  : {ulong.MinValue} to {ulong.MaxValue}");
+
+// Console.WriteLine("");
+// Console.WriteLine("Floating point types:");
+// Console.WriteLine($"float  : {float.MinValue} to {float.MaxValue} (with ~6-9 digits of precision)");
+// Console.WriteLine($"double : {double.MinValue} to {double.MaxValue} (with ~15-17 digits of precision)");
+// Console.WriteLine($"decimal: {decimal.MinValue} to {decimal.MaxValue} (with 28-29 digits of precision)");
+
+// //
+// //Reference Type Variables
+// int[] data; // Defining a variable 'data' that can hold a value of type int array. Here it is not a pointing to any memory address. It is just defined as the ability to hold one in the Heap. This is called a Null reference. 
+// data = new int[3];  // The 'new' key word here tells the .NET runtime to to create an instance of the int array and work with the OS to store an int array sized for 3 int. When compiled it will return the memory address of the newly created int array. 
+//                     // The memory address is then stored in the variable 'data'. the array will default to the value of '0' since that is the default for int
+// int[] data2 = new int[3]; // This is the same as the code above just shortend.
+
+// // string data type
+// // string shortString = "Hello World"; // this does not need a new declaration because it's special.
+// // System.Console.WriteLine(shortString);
+
+// // Practical use of value and reference
+// //Value Type
+// int val_A = 2;
+// int val_B = val_A;
+// val_B = 5;
+// System.Console.WriteLine("Value Types");
+// System.Console.WriteLine($"val_A: {val_A}");
+// System.Console.WriteLine($"val_B: {val_B}");
+
+
+// // Referance Type (array)
+// int[] ref_A = new int[1];
+// ref_A[0] = 2;
+// int[] ref_B = ref_A;
+// ref_B[0] = 5;
+// System.Console.WriteLine("\nReference Types");
+// System.Console.WriteLine($"ref_A[0]: {ref_A[0]}");
+// System.Console.WriteLine($"ref_B[0]: {ref_B[0]}");
+
+// int first = 2;
+// string second = "4";
+// int result = first + second;
+// Console.WriteLine(result);
+
+// int first = 2;
+// string second = "4";
+// string result = first + second;
+// Console.WriteLine(result);
+
+// int myInt = 3;
+// Console.WriteLine($"int: {myInt}");
+
+// decimal myDecimal = myInt;
+// Console.WriteLine($"decimal: {myDecimal}");
+
+// decimal myDecimal = 3.14m;
+// Console.WriteLine($"decimal: {myDecimal}");
+
+// int myInt = (int)myDecimal;
+// Console.WriteLine($"int: {myInt}");
+
+// decimal myDecimal = 1.23456789m;
+// float myFloat = (float)myDecimal;
+
+// Console.WriteLine($"Decimal: {myDecimal}");
+// Console.WriteLine($"Float  : {myFloat}");
+
+// int first = 5;
+// int second = 7;
+// string message = first.ToString() + second.ToString();
+// Console.WriteLine(message);
+
+// string first = "5";
+// string second = "7";
+// int sum = int.Parse(first) + int.Parse(second);
+// Console.WriteLine(sum);
+
+// string value1 = "5";
+// string value2 = "7";
+// int result = Convert.ToInt32(value1) * Convert.ToInt32(value2);
+// Console.WriteLine(result);
+
+// string name = "Bob";
+// Console.WriteLine(int.TryParse(name));
+
+// string value = "102";
+// int result = 0;
+// if (int.TryParse(value, out result))
+// {
+//    Console.WriteLine($"Measurement: {result}");
+// }
+// else
+// {
+//    Console.WriteLine("Unable to report the measurement.");
+// }
+
+// string value = "bad";
+// int result = 0;
+// if (int.TryParse(value, out result))
+// {
+//     Console.WriteLine($"Measurement: {result}");
+// }
+// else
+// {
+//     Console.WriteLine("Unable to report the measurement.");
+// }
+
+// if (result > 0)
+//     Console.WriteLine($"Measurement (w/ offset): {50 + result}");
+
+// string value = "10.2";
+// int result = 0;
+// decimal newInt = 0.0m;
+// if (decimal.TryParse(value, out newInt))
+// {
+//     Console.WriteLine($"Measurement: {newInt}");
+// }
+// else
+// {
+//     Console.WriteLine("Unable to report the measurement.");
+// }
+// if (newInt > 0)
+// Console.WriteLine($"Measurement (w/ offset): {50 + newInt}");
+// // if (decimal.TryParse(value, out newInt))
+// {
+//     Console.WriteLine("String Conversion: " + newInt);
+// }
