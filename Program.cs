@@ -303,8 +303,12 @@
 // using System.Collections.Generic;
 
 
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.IO.Pipelines;
 using System.Runtime.ConstrainedExecution;
+using System.Security.Principal;
+using Microsoft.VisualBasic;
 using Microsoft.Win32;
 
 
@@ -803,3 +807,248 @@ using Microsoft.Win32;
 // {
 //     Console.WriteLine("String Conversion: " + newInt);
 // }
+// string menuOption = "";
+// string readResult = "";
+// int incrementDays = 0;
+// do
+// {
+//     Console.Clear();
+//     if (readResult != null)
+//     {
+//         menuOption = readResult.ToLower();
+// //     }
+// DateTime fridayCheck = DateTime.Now;
+// DateTime localDate = DateTime.Now;
+// // DateTime numDay = localDate.AddDays(1);
+// // System.Console.WriteLine(numDay);
+// if (localDate.DayOfWeek != DayOfWeek.Friday)
+// {
+//     int addDays = 0;
+//     do
+//     {
+//         localDate = localDate.AddDays(1);
+//         addDays++;
+
+
+//     } while (localDate.DayOfWeek != DayOfWeek.Friday);
+//     System.Console.WriteLine(addDays);
+//     System.Console.WriteLine("Today is not Friday");
+// }
+// System.Console.WriteLine("Today is: {0} ,{1:d}", localDate.DayOfWeek, localDate);
+// // System.Console.WriteLine("Next Friday: {0:d}", fridayCheck);
+
+// // int[] payWeek; //use modulus?
+
+// TimeSpan fridayNum = (fridayCheck - localDate);
+// TimeSpan zeroNum = (localDate - localDate);
+// System.Console.WriteLine(fridayNum);
+// System.Console.WriteLine(zeroNum);
+// if (localDate.DayOfWeek != DayOfWeek.Friday)
+// {
+//     System.Console.WriteLine("Today is not Friday");
+// } 
+// else System.Console.WriteLine("Today is Friday!");
+/* if (fridayNum > zeroNum)
+{
+    // System.Console.WriteLine("There are {0.days} days until Friday", fridayNum);
+    System.Console.WriteLine($"There are {fridayNum.Days} days until Friday");
+}
+else System.Console.WriteLine("Today is Friday!"); */
+
+
+/* int[] weeks = new int[26];
+for (int i = 0; i < 26; i++)
+{
+    weeks[i] = i++;
+}
+
+for (int j = 0; j < 26; j++)
+{
+System.Console.WriteLine("Pay Week: {0} = {1}", j, weeks[j]);    
+} */
+
+// int[] year = new int[200];
+// for (int i = 0; i < 200; i++)
+// {
+//     year[i] = i + 1925;
+//     // System.Console.WriteLine(year[i]);
+//     DateTime dateValue = new DateTime(year[i], 1, 1);
+//     Console.WriteLine($"January 1st {year[i]}: {dateValue.ToString("ddd")}");
+//     // Console.WriteLine($"January 1st {year[i]}: {dateValue.ToString("ddd")}");
+
+// }
+
+// DateTime dateValue = new DateTime(2008, 1, 1);
+// Console.WriteLine(dateValue.ToString("ddd"));
+
+// DateTime lastPayDateDec2013 = new(2013, 12, 20);
+// DateTime firstPayDateJan2014 = new(2014, 1, 3);
+// TimeSpan payPeriodInterval = firstPayDateJan2014 - lastPayDateDec2013;
+// int[] payPeriodNumber = new int[26];
+// for (int i = 0; i < 26; i++)
+// {
+//     payPeriodNumber[i] = i + 1; ;
+// }
+// System.Console.WriteLine(payPeriodNumber[0]);
+// System.Console.WriteLine(payPeriodInterval.Days);
+
+// DateTime localDate = DateTime.Now;
+// DateTime lastDay = new System.DateTime(DateTime.Now.Year, 12, 31);
+// CultureInfo myCulturerInfo = new CultureInfo("en-US");
+// Calendar myCal = myCulturerInfo.Calendar;
+// CalendarWeekRule myWeekRule = myCulturerInfo.DateTimeFormat.CalendarWeekRule;
+// DayOfWeek myDayOfWeek = myCulturerInfo.DateTimeFormat.FirstDayOfWeek;
+
+// DateTime payRollZeroFirstStart = new(2024, 12, 1); //First week end +6, Second Week Start +7, Second Week End, +13, PayDate+ 19
+// DateTime payRollZeroFirstEnd = payRollZeroFirstStart.AddDays(6); 
+// DateTime payRollZeroSecondStart = payRollZeroFirstStart.AddDays(7);
+// DateTime payRollZeroSecondEnd = payRollZeroFirstStart.AddDays(13); 
+// DateTime payRollZeroPayDate = payRollZeroFirstStart.AddDays(19); 
+// DateTime startWeekOneDate = payRollZeroFirstStart;
+// DateTime endWeekOneDate = payRollZeroFirstEnd.AddDays(364);
+// DateTime startWeekTwoDate = payRollZeroSecondStart;
+// DateTime endWeekTwoDate = payRollZeroSecondEnd.AddDays(364);
+// for (short i = 2020; i < 3020; i++)
+// {
+//     // System.Console.WriteLine("Days in {0}: {1}", i, myCal.GetDaysInYear(i));
+// }
+
+// System.Console.WriteLine(myCal.GetDaysInYear(localDate.Year));
+// System.Console.WriteLine("{0:d}, {0:dd}, {0:ddd}, {0:dddd}, {0:ddddd}", localDate);
+// System.Console.WriteLine(localDate.Year);
+
+// // Create array for pay period week 1
+// List<DateTime> weekOneDates = new List<DateTime>();
+// for (DateTime date = startWeekOneDate; date <= endWeekOneDate; date = date.AddDays(14))
+// {
+//     weekOneDates.Add(date);
+// }
+// DateTime[] weekOneStartArray = weekOneDates.ToArray();
+
+// // Create array for pay period week 2
+// List<DateTime> weekTwoDates = new List<DateTime>();
+// for (DateTime date = startWeekTwoDate; date <= endWeekTwoDate; date = date.AddDays(14))
+// {
+//     weekTwoDates.Add(date);
+// }
+// DateTime[] weekTwoStartArray = weekTwoDates.ToArray();
+
+// bool weekFound = false;
+// int payRollWeek = 0;
+// do
+// {
+//     DateTime checkWeekLower = localDate;
+//     DateTime checkWeekUpper = localDate;
+//     for (int i = 0; i < weekOneStartArray.Length; i++)
+//     {
+//         if (localDate >= weekOneStartArray[i])
+//         {
+//             checkWeekLower = weekOneStartArray[i];
+//             if (localDate < checkWeekLower.AddDays(7))
+//             {
+//                 payRollWeek = 1;
+//                 checkWeekUpper = checkWeekLower.AddDays(7);
+//             }
+//             else
+//             {
+//                 payRollWeek = 2;
+//             }
+//         }
+//     }
+//     System.Console.WriteLine("Today is: {0:d}\nWe are in Week {1} of 2", localDate, payRollWeek);
+// } while (payRollWeek == 0);
+// DateTime firstPayWeek2025 = new(2024, 12, 15);
+// DateTime firstPayWeekEnd2025 = new(2024, 12, 21);   //+6
+// DateTime secondPayWeek2025 = new(2024, 12, 22);     //+7
+// DateTime secondPayWeekEnd2025 = new(2024, 12, 28);  //+13
+// DateTime firstPayDate2025 = new(2025, 1, 3);        //+19
+// System.Console.WriteLine(allDatesArray[0]);
+// System.Console.WriteLine(allDatesArray[1]);
+// System.Console.WriteLine(allDatesArray.Length);
+// for (int i = 0; i < allDatesArray.Length; i++)
+// {
+//     System.Console.WriteLine(allDatesArray[i]);
+// }
+
+// Setting variables to be used in program
+// var dateToday = localDate.Date.ToShortDateString();
+
+// int weeksInYear = myCal.GetWeekOfYear(lastDay, myWeekRule, myDayOfWeek);
+// int currentWeek = myCal.GetWeekOfYear(localDate, myWeekRule, myDayOfWeek);
+// int payPeriodInYear = weeksInYear / 2;
+// int carryOver = 75;
+
+
+// string[] pallets = [ "B14", "A11", "B12", "A13" ];
+
+// Console.WriteLine("Sorted...");
+// Array.Sort(pallets); //Sorts array alpha numerically
+// foreach (var pallet in pallets)
+// {
+//     Console.WriteLine($"-- {pallet}");
+// }
+
+// Console.WriteLine("");
+// Console.WriteLine("Reversed...");
+// Array.Reverse(pallets); // Sorts opposit order of .Sort
+// foreach (var pallet in pallets)
+// {
+//     Console.WriteLine($"-- {pallet}");
+// }
+
+// string[] pallets = [ "B14", "A11", "B12", "A13" ];
+// Console.WriteLine("");
+
+// System.Console.WriteLine($"Before: {pallets[0].ToLower()}");
+// Array.Clear(pallets, 0, 2); // Clear starting at position 0, then clear 2 elements.
+// System.Console.WriteLine($"After: {pallets[0].ToLower()}");
+
+// Console.WriteLine($"Clearing 2 ... count: {pallets.Length}");
+// foreach (var pallet in pallets)
+// {
+//     Console.WriteLine($"-- {pallet}");
+// }
+
+// string[] pallets =  ["B14", "A11", "B12", "A13" ];
+// Console.WriteLine("");
+
+// Array.Clear(pallets, 0, 2);
+// Console.WriteLine($"Clearing 2 ... count: {pallets.Length}");
+// foreach (var pallet in pallets)
+// {
+//     Console.WriteLine($"-- {pallet}");
+// }
+
+// Console.WriteLine("");
+// Array.Resize(ref pallets, 6);
+// Console.WriteLine($"Resizing 6 ... count: {pallets.Length}");
+
+// pallets[4] = "C01";
+// pallets[5] = "C02";
+
+// foreach (var pallet in pallets)
+// {
+//     Console.WriteLine($"-- {pallet}");
+// }
+
+// Console.WriteLine("");
+// Array.Resize(ref pallets, 3);
+// Console.WriteLine($"Resizing 3 ... count: {pallets.Length}");
+
+// foreach (var pallet in pallets)
+// {
+//     Console.WriteLine($"-- {pallet}");
+// }
+
+string value = "abc123";
+char[] valueArray = value.ToCharArray();
+Array.Reverse(valueArray);
+// string result = new string(valueArray);
+string result = String.Join(",", valueArray);
+System.Console.WriteLine(result);
+
+string[] items = result.Split(',');
+foreach (string item in items)
+{
+    System.Console.WriteLine(item);
+}
